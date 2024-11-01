@@ -1,101 +1,279 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Input, TerminalContainer } from './Styles';
-import TypingText from '../TypingText/TypingText';
+
+import {
+  Input,
+  SuggestionItem,
+  TerminalA,
+  TerminalContainer,
+  TerminalLi,
+  TerminalUl,
+  SuggestionsContainer
+} from './Styles'
+import CodeRain from './CodeRainContainer'
+import TypingText from '../TypingText/TypingText'
 
 const randomQuotes = [
-    "Persistence is the key to success - Charles Chaplin",
-    "The only way to do great work is to love what you do - Steve Jobs",
-    "The best way to predict the future is to create it - Peter Drucker",
-    "Don’t count the days, make the days count- Muhammad Ali",
-];
+  'Persistence is the key to success - Charles Chaplin',
+  'The only way to do great work is to love what you do - Steve Jobs',
+  'The best way to predict the future is to create it - Peter Drucker',
+  'Don’t count the days, make the days count- Muhammad Ali'
+]
 
 const randomJokes = [
-    "Why did the programmer prefer the dark? Because he didn’t want to see the bugs!",
-    "How does a programmer count to ten? 1, 10!",
-    "Why is JavaScript a great love language? Because it always adapts to your context!"
-];
-
-
-
+  'Why did the programmer prefer the dark? Because he didn’t want to see the bugs!',
+  'How does a programmer count to ten? 1, 10!',
+  'Why is JavaScript a great love language? Because it always adapts to your context!'
+]
+const commandsList = [
+  'whoami',
+  'projects',
+  'skills',
+  'contact',
+  'help',
+  'quote',
+  'joke',
+  'time',
+  'matrix',
+  'clear'
+]
 
 const Terminal: React.FC = () => {
-const terminalRef = useRef<HTMLDivElement>(null);
-const [command, setCommand] = useState<string>('');
-const [output, setOutput] = useState<string[]>([]); 
+  const terminalRef = useRef<HTMLDivElement>(null)
+  const [command, setCommand] = useState<string>('')
+  const [output, setOutput] = useState<JSX.Element[]>([])
+  const [codeRainActive, setCodeRainActive] = useState<boolean>(false)
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
+  const [historyIndex, setHistoryIndex] = useState<number | null>(null)
+  const [suggestions, setSuggestions] = useState<string[]>([])
 
-const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-    let response = '';
+      let response: JSX.Element | string = ''
 
-    switch (command.trim().toLowerCase()) {
+      setCommandHistory((prevHistory) => [...prevHistory, command])
+      setHistoryIndex(null)
+
+      switch (command.trim().toLowerCase()) {
         case 'whoami':
-        response = "Nice to meet you! My name is José Miguel Silva Felício. I am 23 years old and a full-stack web developer with 2 years of experience. I focus on TypeScript, React, and Node.js for the backend. I am always looking for new challenges and love creating innovative solutions. Let’s connect and explore possibilities together!";
-        break;
+          response = (
+            <span className="response response-success">
+              Nice to meet you! My name is José Miguel Silva Felício, a
+              23-year-old full-stack web developer from Curitiba. I work
+              primarily with TypeScript, React on the front end, and Node.js on
+              the back end. I recently completed a freelance project for a
+              gutter company and enjoy keeping my skills sharp by creating
+              unique projects, like my current Matrix-inspired portfolio. I’m
+              passionate about coding and experimenting with new effects,
+              especially ones with a hacker vibe! I’m currently building a
+              portfolio with features like a terminal interface, command
+              history, interactive navigation, syntax highlighting, and
+              simulated API commands to create an immersive experience. As for
+              design, I’m all about that dark, cyber aesthetic.
+            </span>
+          )
+          break
         case 'projects':
-        response = "Projects: \n1.Efood\n2. Trivia\n3. IA reconize users";
-        break;
+          response = (
+            <div className="response response-link">
+              Projects:
+              <TerminalUl>
+                <TerminalLi>
+                  <TerminalA
+                    href="https://github.com/SpitSmoke/Efood"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Efood
+                  </TerminalA>
+                  - A food delivery app
+                </TerminalLi>
+                <TerminalLi>
+                  <TerminalA
+                    href="https://github.com/SpitSmoke/Trivia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Trivia
+                  </TerminalA>
+                  - Quiz app with custom questions
+                </TerminalLi>
+                <TerminalLi>
+                  <TerminalA
+                    href="https://github.com/SpitSmoke/Python-IA-Reconhecimento"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    IA recognize users
+                  </TerminalA>
+                  - Uses AI for facial recognition
+                </TerminalLi>
+              </TerminalUl>
+            </div>
+          )
+          break
         case 'skills':
-        response = "Skills: \n- TypeScript\n- React\n- Node.js\n- CSS\n- HTML";
-        break;
+          response = (
+            <span className="response">
+              Skills: <br />- TypeScript
+              <br />- React
+              <br />- Node.js
+              <br />- CSS
+              <br />- HTML
+            </span>
+          )
+          break
         case 'contact':
-        response = "Contact: \nEmail: jmfelicio.sp@gmail.com\nLinkedIn: linkedin.com/in/jose-miguel-silva-felicio\nGitHub: github.com/SpitSmoke";
-        break;
+          response = (
+            <span className="response">
+              Contact: <br />
+              Email: jmfelicio.sp@gmail.com
+              <br />
+              LinkedIn: linkedin.com/in/jose-miguel-silva-felicio
+              <br />
+              GitHub: github.com/SpitSmoke
+            </span>
+          )
+          break
         case 'help':
-        response = "List of commands: \n- whoami: Present information about me\n- projects: List my projects\n- skills: Show my skills\n- contact: Display contact information\n- help: Show this list of commands\n- quote: Show the quotes\n- joke: Make a joke\n- time: Show the time\n- clear: Clear the console or (CTRL + L)";
-        break;
+          response = (
+            <span className="response">
+              List of commands: <br />
+              - whoami: Present information about me
+              <br />- projects: List my projects
+              <br />- skills: Show my skills
+              <br />- contact: Display contact information
+              <br />- help: Show this list of commands
+              <br />- quote: Show the quotes
+              <br />- joke: Make a joke
+              <br />- time: Show the time
+              <br />- matrix: Matrix Effect
+              <br />- clear: Clear the console or (CTRL + L)
+            </span>
+          )
+          break
         case 'quote':
-        { const randomQuote = randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
-        response = randomQuote;
-        break; }
-        case 'joke':
-        {const randomJoke = randomJokes[Math.floor(Math.random() * randomJokes.length)];
-        response = randomJoke;
-        break;}
+          {
+            const randomQuote =
+              randomQuotes[Math.floor(Math.random() * randomQuotes.length)]
+            response = <span className="response">{randomQuote}</span>
+          }
+          break
+        case 'joke': {
+          const randomJoke =
+            randomJokes[Math.floor(Math.random() * randomJokes.length)]
+          response = <span className="response">{randomJoke}</span>
+          break
+        }
         case 'time':
-        response = new Date().toLocaleTimeString();
-        break;
-        case 'clear': 
-        setOutput([]); 
-        setCommand('');
-        return;
+          response = (
+            <span className="response">{new Date().toLocaleTimeString()}</span>
+          )
+          break
+        case 'clear':
+          setOutput([])
+          setCommand('')
+          return
+        case 'matrix':
+          response = (
+            <span className="response">Activating Matrix Effect...</span>
+          )
+          setCodeRainActive(true)
+          break
         default:
-        response = `Command not recognized: ${command}`;
-    }
+          response = (
+            <span className="response-error">
+              Unrecognized command: {command}
+            </span>
+          )
+      }
 
-    setOutput((prev: string[]) => [...prev, response]);
-    setCommand('');
+      setOutput((prev: JSX.Element[]) => [...prev, response])
+      setCommand('')
     }
 
     if (event.ctrlKey && event.key === 'l') {
-        event.preventDefault(); 
-        setOutput([]); 
-        setCommand('');
+      event.preventDefault()
+      setOutput([])
+      setCommand('')
     }
-};
-;
 
-useEffect(() => {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      if (historyIndex === null && commandHistory.length > 0) {
+        setHistoryIndex(commandHistory.length - 1)
+        setCommand(commandHistory[commandHistory.length - 1])
+      } else if (historyIndex! > 0) {
+        setHistoryIndex(historyIndex! - 1)
+        setCommand(commandHistory[historyIndex! - 1])
+      }
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      if (historyIndex !== null) {
+        if (historyIndex < commandHistory.length - 1) {
+          setHistoryIndex(historyIndex + 1)
+          setCommand(commandHistory[historyIndex + 1])
+        } else {
+          setHistoryIndex(null)
+          setCommand('')
+        }
+      }
+    }
+  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setCommand(value)
+
+    if (value) {
+      const filteredSuggestions = commandsList.filter((cmd) =>
+        cmd.startsWith(value.toLowerCase())
+      )
+      setSuggestions(filteredSuggestions)
+    } else {
+      setSuggestions([])
+    }
+  }
+
+  useEffect(() => {
     if (terminalRef.current) {
-    terminalRef.current.scrollTop = terminalRef.current.scrollHeight; 
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight
     }
-}, [output]);
+  }, [output])
 
-return (
+  return (
     <TerminalContainer ref={terminalRef}>
-            <TypingText text="Weelcome to my hacker-style portfolio! Type 'help' to see the available commands." speed={14} />
-
-            {output.map((line: string, index: number) => ( 
+      <TypingText
+        text="Welcome to my hacker-style portfolio! Type 'help' to see the available commands."
+        speed={14}
+      />
+      <CodeRain active={codeRainActive} />
+      {output.map((line: JSX.Element, index: number) => (
         <div key={index}>{line}</div>
-    ))}
-    <Input
+      ))}
+      <Input
         type="text"
         value={command}
-        onChange={(e) => setCommand(e.target.value)}
+        onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
         placeholder="Type a command..."
-    />
-    </TerminalContainer>
-);
-};
+      />
 
-export default Terminal;
+      {suggestions.length > 0 && (
+        <SuggestionsContainer>
+          {suggestions.map((suggestion, index) => (
+            <SuggestionItem
+              key={index}
+              onClick={() => {
+                setCommand(suggestion)
+                setSuggestions([])
+              }}
+            >
+              {suggestion}
+            </SuggestionItem>
+          ))}
+        </SuggestionsContainer>
+      )}
+    </TerminalContainer>
+  )
+}
+
+export default Terminal
