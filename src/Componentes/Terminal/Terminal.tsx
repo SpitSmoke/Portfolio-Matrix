@@ -242,7 +242,7 @@ const Terminal: React.FC = () => {
   return (
     <TerminalContainer ref={terminalRef}>
       <TypingText
-        text="Welcome to my hacker-style portfolio! Type 'help' to see the available commands."
+        text="Weelcome to my hacker-style portfolio! Type 'help' to see the available commands."
         speed={14}
       />
       <CodeRain active={codeRainActive} />
