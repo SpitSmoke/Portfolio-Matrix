@@ -1,10 +1,9 @@
-import React from "react";
-import { NeonText,Subtitle,} from "./Styles";
+import { NeonText, Subtitle } from "./Styles";
 
 const WelcomeScreen = () => (
-    <div>
-        <NeonText>.</NeonText>
-        <Subtitle>.</Subtitle>
-    </div>
-)
-export default WelcomeScreen
+  <div>
+    <NeonText>.</NeonText>
+    <Subtitle>.</Subtitle>
+  </div>
+);
+export default WelcomeScreen;
