@@ -37,6 +37,7 @@ const commandsList = [
   'clear'
 ]
 
+
 const Terminal: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null)
   const [command, setCommand] = useState<string>('')
@@ -46,6 +47,27 @@ const Terminal: React.FC = () => {
   const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
 
+  const simulateConnection = (response: JSX.Element | string) => {
+    const randomCharacters =
+      'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*() ア イ ウ エ オ カ キ ク ケ コ サ シ ス セ ソ タ チ ツ テ ト ナ ニ ヌ ネ ノ ハ ヒ フ ヘ ホ マ ミ ム メ モ ヤ ユ ヨ ラ リ ル レ ロ ヲ ワ ン'
+    const connectionDuration = 8500
+    const interval = 100
+
+    const startTime = Date.now()
+
+    const intervalId = setInterval(() => {
+      const elapsedTime = Date.now() - startTime
+
+      if (elapsedTime > connectionDuration) {
+        clearInterval(intervalId)
+        setOutput((prev) => [...prev, <span>{response}</span>])
+      } else {
+        const randomChar =
+          randomCharacters[Math.floor(Math.random() * randomCharacters.length)]
+        setOutput((prev) => [...prev, <span>{randomChar}</span>])
+      }
+    }, interval)
+  }
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       let response: JSX.Element | string = ''
@@ -174,11 +196,10 @@ const Terminal: React.FC = () => {
           setCommand('')
           return
         case 'matrix':
-          response = (
-            <span className="response">Activating Matrix Effect...</span>
-          )
           setCodeRainActive(true)
+          simulateConnection(response)
           break
+
         default:
           response = (
             <span className="response-error">
@@ -187,7 +208,10 @@ const Terminal: React.FC = () => {
           )
       }
 
-      setOutput((prev: JSX.Element[]) => [...prev, response])
+      setOutput((prev) => [
+        ...prev,
+        typeof response === 'string' ? <span>{response}</span> : response
+      ])
       setCommand('')
     }
 

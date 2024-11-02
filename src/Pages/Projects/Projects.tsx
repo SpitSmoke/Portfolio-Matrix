@@ -35,7 +35,7 @@ const projects = [
 const Projects = () => {
   return (
     <div>
-      <Title>My Projects</Title>
+      <Title>.</Title>
       <ProjectsContainer>
         {projects.map((projects, index) => (
           <ProjectCard
@@ -47,7 +47,7 @@ const Projects = () => {
         ))}
       </ProjectsContainer>
     </div>
-  );
+  )
 };
 
 export default Projects;
