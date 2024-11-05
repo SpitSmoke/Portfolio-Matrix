@@ -3,7 +3,8 @@ Bem-vindo ao meu Portfolio Matrix, onde a tecnologia e a criatividade se encontr
 
 🎨 Descrição do Projeto: Este portfólio interativo foi desenvolvido para mostrar minhas habilidades como desenvolvedor web full stack, com foco em TypeScript, React e Node.js. Inspirado na icônica estética do Matrix, ele apresenta um terminal interativo que simula uma experiência de hacking, onde você pode explorar minhas habilidades e projetos através de comandos personalizados! 🕶️💚
 
-🔗 Visualize o portfólio ao vivo: Portfolio na Vercel
+🔗 **Visualize o portfólio ao vivo:** [Portfolio na Vercel](https://portfolio-matrix-six.vercel.app)
+
 
 ✨ Funcionalidades:
 
