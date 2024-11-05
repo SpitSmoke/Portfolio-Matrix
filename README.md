@@ -1,27 +1,20 @@
-*🖥️ Portfolio Interativo Inspirado em Matrix 🌐*
-Descrição: Bem-vindo ao meu portfólio interativo! 🔍✨ Aqui, você pode explorar minhas habilidades e projetos através de um terminal estilo hacker, tudo inspirado no universo de Matrix 🕶️💚. Com comandos personalizados, você pode descobrir mais sobre mim e meu trabalho em um ambiente imersivo.
+🚀 Portfolio Matrix 💚
+Bem-vindo ao meu Portfolio Matrix, onde a tecnologia e a criatividade se encontram! 🌌💻
 
-*Funcionalidades:*
+🎨 Descrição do Projeto: Este portfólio interativo foi desenvolvido para mostrar minhas habilidades como desenvolvedor web full stack, com foco em TypeScript, React e Node.js. Inspirado na icônica estética do Matrix, ele apresenta um terminal interativo que simula uma experiência de hacking, onde você pode explorar minhas habilidades e projetos através de comandos personalizados! 🕶️💚
 
-🖥️ Terminal Interativo: Execute comandos como whoami, projects, skills, e muito mais!
-🎨 Temas Dinâmicos: Alterne entre temas clássico, escuro e neon para personalizar sua experiência.
-🚀 Animações e Efeitos Visuais: Uma experiência que traz vida ao seu terminal!
-📜 Snippets de Código: Exibição elegante de código com destaque de sintaxe.
-⏳ Histórico de Comandos: Navegue pelo passado do seu terminal e descubra o que você fez!
-Tecnologias Utilizadas:
+🔗 Visualize o portfólio ao vivo: Portfolio na Vercel
 
-Frontend: React, TypeScript
-Estilização: Styled Components  
+✨ Funcionalidades:
 
-Demonstração:
+Terminal interativo com comandos como whoami, projects, skills, e muito mais! 🔍
+Temas dinâmicos: escolha entre clássico, dark e neon! 🌈
+Animações e efeitos sonoros para uma experiência imersiva! 🎶
+🛠️ Tecnologias Utilizadas:
 
-*🌐 Acesse a versão ao vivo e mergulhe no código!*
-Como Executar:
-
-🚀 Clone este repositório: git clone (https://github.com/SpitSmoke/Portfolio-Matrix.git)
-📂 Navegue até o diretório do projeto.
-📦 Instale as dependências: npm install
-▶️ Inicie o servidor de desenvolvimento: npm start
-Contribuições: Contribuições são muito bem-vindas! 🤝 Sinta-se à vontade para abrir uma issue ou enviar um pull request. Vamos codar juntos! 💻💚
+TypeScript
+React
+Node.js
+💬 Feedback e Contribuições: Estou sempre em busca de melhorias e novas colaborações! Sinta-se à vontade para abrir issues ou pull requests. Vamos transformar ideias em realidade! 🤝
 
 
