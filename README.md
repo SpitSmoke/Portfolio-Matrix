@@ -11,14 +11,14 @@ Descrição: Bem-vindo ao meu portfólio interativo! 🔍✨ Aqui, você pode ex
 Tecnologias Utilizadas:
 
 Frontend: React, TypeScript
-Estilização: CSS-in-JS (Styled Components ou similar) 💅
-Bibliotecas: (Liste aqui quaisquer bibliotecas que você utilizou)
+Estilização: Styled Components  
+
 Demonstração:
 
 *🌐 Acesse a versão ao vivo e mergulhe no código!*
 Como Executar:
 
-🚀 Clone este repositório: git clone [https://github.com/username/repo.git](https://github.com/SpitSmoke/Portfolio-Matrix.git)
+🚀 Clone este repositório: git clone (https://github.com/SpitSmoke/Portfolio-Matrix.git)
 📂 Navegue até o diretório do projeto.
 📦 Instale as dependências: npm install
 ▶️ Inicie o servidor de desenvolvimento: npm start
