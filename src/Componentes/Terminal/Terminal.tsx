@@ -234,7 +234,27 @@ const Terminal: React.FC = () => {
                   >
                     IA recognize users
                   </TerminalA>
-                  - Uses AI for facial recognition
+                  - Uses AI recognition ID
+                </TerminalLi>
+                <TerminalLi>
+                  <TerminalA
+                    href="https://github.com/SpitSmoke/Chat-com-python"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Chat
+                  </TerminalA>
+                  - Chat build with Python
+                </TerminalLi>
+                <TerminalLi>
+                  <TerminalA
+                    href="https://github.com/SpitSmoke/ebac_sports"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Sports store
+                  </TerminalA>
+                  - Store with payment API
                 </TerminalLi>
               </TerminalUl>
             </div>
