@@ -1,7 +1,7 @@
-🖥️ Portfolio Interativo Inspirado em Matrix 🌐
+*🖥️ Portfolio Interativo Inspirado em Matrix 🌐*
 Descrição: Bem-vindo ao meu portfólio interativo! 🔍✨ Aqui, você pode explorar minhas habilidades e projetos através de um terminal estilo hacker, tudo inspirado no universo de Matrix 🕶️💚. Com comandos personalizados, você pode descobrir mais sobre mim e meu trabalho em um ambiente imersivo.
 
-Funcionalidades:
+*Funcionalidades:*
 
 🖥️ Terminal Interativo: Execute comandos como whoami, projects, skills, e muito mais!
 🎨 Temas Dinâmicos: Alterne entre temas clássico, escuro e neon para personalizar sua experiência.
@@ -15,7 +15,7 @@ Estilização: CSS-in-JS (Styled Components ou similar) 💅
 Bibliotecas: (Liste aqui quaisquer bibliotecas que você utilizou)
 Demonstração:
 
-🌐 Acesse a versão ao vivo e mergulhe no código!
+*🌐 Acesse a versão ao vivo e mergulhe no código!*
 Como Executar:
 
 🚀 Clone este repositório: git clone [https://github.com/username/repo.git](https://github.com/SpitSmoke/Portfolio-Matrix.git)
