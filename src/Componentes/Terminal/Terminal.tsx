@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
   Input,
@@ -34,9 +34,10 @@ const commandsList = [
   'joke',
   'time',
   'matrix',
+  'ping',
+  'cv',
   'clear'
 ]
-
 
 const Terminal: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -46,6 +47,47 @@ const Terminal: React.FC = () => {
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
+
+  const simulatePing = (address: string) => {
+    const pingMessages = [
+      `PING ${address} (192.168.0.1): 56 data bytes`,
+      `64 bytes from 192.168.0.1: icmp_seq=0 ttl=64 time=14.2 ms`,
+      `64 bytes from 192.168.0.1: icmp_seq=1 ttl=64 time=13.8 ms`,
+      `64 bytes from 192.168.0.1: icmp_seq=2 ttl=64 time=14.0 ms`,
+      `64 bytes from 192.168.0.1: icmp_seq=3 ttl=64 time=13.7 ms`,
+      `--- ${address} ping statistics ---`,
+      `4 packets transmitted, 4 packets received, 0.0% packet loss`,
+      `round-trip min/avg/max = 13.7/13.9/14.2 ms`
+    ]
+
+    pingMessages.forEach((message, index) => {
+      setTimeout(() => {
+        setOutput((prev) => [
+          ...prev,
+          <span className="response">{message}</span>
+        ])
+      }, index * 500)
+    })
+  }
+
+  const missionsList = [
+    {
+      title: 'Explore the Terminal',
+      description: 'Execute the command "whoami" to learn about yourself.',
+      completed: false
+    },
+    {
+      title: 'Show Your Projects',
+      description: 'Run the command "projects" to display your projects.',
+      completed: false
+    },
+    {
+      title: 'Reveal Your Skills',
+      description: 'Use the command "skills" to show your skills.',
+      completed: false
+    }
+  ]
+  const [missions, setMissions] = useState(missionsList)
 
   const simulateConnection = (response: JSX.Element | string) => {
     const randomCharacters =
@@ -68,6 +110,71 @@ const Terminal: React.FC = () => {
       }
     }, interval)
   }
+
+  const handleMissionsCommand = () => {
+    const missionResponses = missions.map((mission, index) => {
+      return (
+        <span key={index} className="response">
+          {mission.completed
+            ? `✅ ${mission.title} - Completed`
+            : `❌ ${mission.title} - ${mission.description}`}{' '}
+        </span>
+      )
+    })
+
+    setOutput((prev) => [...prev, ...missionResponses])
+  }
+
+  const handleCompleteMissionCommand = (index: number) => {
+    setMissions((prevMissions) => {
+      const newMissions = [...prevMissions]
+      newMissions[index].completed = true
+      setOutput((prev) => [
+        ...prev,
+        <span className="response">
+          Mission "{newMissions[index].title}" completed!
+        </span>
+      ])
+
+      return newMissions
+    })
+  }
+
+  const handleCvCommand = () => {
+    const cvData = [
+      'Name: José Miguel Silva Felício',
+      'Age: 23 years',
+      'Country: Brazil',
+      'Skills: TypeScript, React, Node.js, CSS, JavaScript, Java, SpringBoot',
+      'For more details, check my CV: '
+    ]
+
+    const displayCvInfo = (index: number) => {
+      if (index < cvData.length) {
+        const response =
+          index === cvData.length - 1 ? (
+            <span className="response-sucess">
+              {cvData[index]}
+              <TerminalA
+                href="https://drive.google.com/file/d/1JoPs460SdlL0Iv7Ro-NAVkvkiOk_K9aR/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                MY CV
+              </TerminalA>
+            </span>
+          ) : (
+            <span className="response">{cvData[index]}</span>
+          )
+
+        setOutput((prev) => [...prev, response])
+        setTimeout(() => displayCvInfo(index + 1), 1000)
+      }
+    }
+
+    displayCvInfo(0)
+  }
+
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       let response: JSX.Element | string = ''
@@ -135,7 +242,7 @@ const Terminal: React.FC = () => {
           break
         case 'skills':
           response = (
-            <span className="response">
+            <span className="response-success">
               Skills: <br />- TypeScript
               <br />- React
               <br />- Node.js
@@ -169,6 +276,9 @@ const Terminal: React.FC = () => {
               <br />- joke: Make a joke
               <br />- time: Show the time
               <br />- matrix: Matrix Effect
+              <br />- ping: Pong
+              <br />- cv: Show my CV
+              <br />- missions: Some little missions
               <br />- clear: Clear the console or (CTRL + L)
             </span>
           )
@@ -199,7 +309,37 @@ const Terminal: React.FC = () => {
           setCodeRainActive(true)
           simulateConnection(response)
           break
-
+        case 'ping': {
+          const address = command.split(' ')[1] || 'localhost'
+          setOutput((prev) => [
+            ...prev,
+            <span className="response">Pinging {address}...</span>
+          ])
+          simulatePing(address)
+          break
+        }
+        case 'cv':
+          handleCvCommand()
+          break
+        case 'missions':
+          handleMissionsCommand()
+          break
+        case 'complete': {
+          const indexToComplete = parseInt(command.split(' ')[1])
+          if (
+            !isNaN(indexToComplete) &&
+            indexToComplete >= 0 &&
+            indexToComplete < missions.length
+          ) {
+            handleCompleteMissionCommand(indexToComplete)
+          } else {
+            setOutput((prev) => [
+              ...prev,
+              <span className="response-error">Invalid mission index.</span>
+            ])
+          }
+          break
+        }
         default:
           response = (
             <span className="response-error">

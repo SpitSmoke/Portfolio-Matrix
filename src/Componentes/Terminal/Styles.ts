@@ -50,25 +50,6 @@ export const TerminalContainer = styled.div`
     text-decoration: underline;
     cursor: pointer;
   }
-
-  @media (max-width: 1024px) {
-    max-width: 600px;
-    height: 250px;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 400px;
-    height: 200px;
-    padding: 15px;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 480px) {
-    max-width: 300px;
-    height: 150px;
-    padding: 10px;
-    font-size: 0.8rem;
-  }
 `
 
 export const Input = styled.input`
